@@ -1,25 +1,26 @@
 export default class InputHandler {
-  constructor(game) {
+  constructor(game, player, playerKeys) {
     this.game = game;
+    this.player = player;
     window.addEventListener("keydown", (e) => {
       if (
-        (e.key === "ArrowUp" ||
-          e.key === "ArrowDown" ||
-          e.key === "ArrowLeft" ||
-          e.key === "ArrowRight") &&
-        this.game.keys.indexOf(e.key) === -1
+        (e.key === playerKeys.up ||
+          e.key === playerKeys.down ||
+          e.key === playerKeys.left ||
+          e.key === playerKeys.right) &&
+        this.player.keys.indexOf(e.key) === -1
       )
-        this.game.keys.push(e.key);
-      else if (e.key === " ") {
-        this.game.player.shootTop();
-      } else if (e.key === "bddadawd") {
+        this.player.keys.push(e.key);
+      else if (e.key === playerKeys.shoot) {
+        this.player.shootTop();
+      } else if (e.key === "m") {
         this.game.debug = !this.game.debug;
       }
       //console.log(e.key); //Debug keys
     });
     window.addEventListener("keyup", (e) => {
-      if (this.game.keys.indexOf(e.key) > -1) {
-        this.game.keys.splice(this.game.keys.indexOf(e.key), 1);
+      if (this.player.keys.indexOf(e.key) > -1) {
+        this.player.keys.splice(this.player.keys.indexOf(e.key), 1);
       }
     });
   }

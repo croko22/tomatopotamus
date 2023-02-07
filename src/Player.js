@@ -1,18 +1,22 @@
 import Projectile from "./Projectile.js";
+import InputHandler from "./InputHandler.js";
 
 export default class Player {
-  constructor(game) {
+  constructor(game, x, y, playerKeys) {
     this.game = game;
+    this.playerKeys = playerKeys;
+    this.input = new InputHandler(this.game, this, this.playerKeys);
     this.width = 120;
     this.height = 190;
-    this.x = 20;
-    this.y = 100;
+    this.x = x;
+    this.y = y;
     this.frameX = 0;
     this.frameY = 0;
     this.maxFrame = 37;
     this.speedY = 0;
     this.maxSpeed = 3;
     this.projectiles = [];
+    this.keys = []; //*Currently pressed keys
     this.image = document.getElementById("player");
     this.powerUp = false;
     this.powerUpTimer = 0;
@@ -20,13 +24,14 @@ export default class Player {
   }
   update(deltaTime) {
     //*Handle input Y edge
-    if (this.game.keys.includes("ArrowUp")) this.speedY = -this.maxSpeed;
-    else if (this.game.keys.includes("ArrowDown")) this.speedY = this.maxSpeed;
+    if (this.keys.includes(this.playerKeys.up)) this.speedY = -this.maxSpeed;
+    else if (this.keys.includes(this.playerKeys.down))
+      this.speedY = this.maxSpeed;
     else this.speedY = 0;
     this.y += this.speedY;
     //*Handle input X edge
-    if (this.game.keys.includes("ArrowLeft")) this.x -= this.maxSpeed;
-    else if (this.game.keys.includes("ArrowRight")) this.x += this.maxSpeed;
+    if (this.keys.includes(this.playerKeys.left)) this.x -= this.maxSpeed;
+    else if (this.keys.includes(this.playerKeys.right)) this.x += this.maxSpeed;
     //*Handle boundaries Y edge
     if (this.y > this.game.height - this.height * 0.5)
       this.y = this.game.height - this.height * 0.5;
