@@ -2,10 +2,11 @@ import Projectile from "./Projectile.js";
 import InputHandler from "./InputHandler.js";
 
 export default class Player {
-  constructor(game, x, y, playerKeys) {
+  constructor(game, x, y, playerKeys, playerSide) {
     this.game = game;
     this.playerKeys = playerKeys;
     this.input = new InputHandler(this.game, this, this.playerKeys);
+    this.playerSide = playerSide;
     this.width = 120;
     this.height = 190;
     this.x = x;
@@ -37,9 +38,16 @@ export default class Player {
       this.y = this.game.height - this.height * 0.5;
     else if (this.y < -this.height * 0.5) this.y = -this.height * 0.5;
     //*Handle boundaries X edge
-    if (this.x > this.game.width - this.width * 0.5)
-      this.x = this.game.width - this.width * 0.5;
-    else if (this.x < -this.width * 0.5) this.x = -this.width * 0.5;
+    if (this.playerSide === "left") {
+      if (this.x > this.game.width * 0.5 - this.width)
+        this.x = this.game.width * 0.5 - this.width;
+      else if (this.x < -this.width * 0.5) this.x = -this.width * 0.5;
+    } else {
+      if (this.x < this.game.width * 0.5 + this.width)
+        this.x = this.game.width * 0.5 + this.width;
+      else if (this.x > this.game.width - this.width * 0.5)
+        this.x = this.game.width - this.width * 0.5;
+    }
     //*Handle projectiles
     this.projectiles.forEach((projectile) => projectile.update());
     this.projectiles = this.projectiles.filter(
@@ -81,7 +89,7 @@ export default class Player {
   shootTop() {
     if (this.game.ammo > 0) {
       this.projectiles.push(
-        new Projectile(this.game, this.x + 80, this.y + 30)
+        new Projectile(this.game, this.x + 80, this.y + 30, this.playerSide)
       );
       this.game.ammo--;
     }

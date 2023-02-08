@@ -16,20 +16,32 @@ export default class Game {
     this.width = width;
     this.height = height;
     this.background = new Background(this);
-    this.player = new Player(this, 100, 20, {
-      up: "w",
-      down: "s",
-      left: "a",
-      right: "d",
-      shoot: " ",
-    });
-    this.player1 = new Player(this, 1000, 200, {
-      up: "ArrowUp",
-      down: "ArrowDown",
-      left: "ArrowLeft",
-      right: "ArrowRight",
-      shoot: "Enter",
-    });
+    this.player = new Player(
+      this,
+      100,
+      20,
+      {
+        up: "w",
+        down: "s",
+        left: "a",
+        right: "d",
+        shoot: " ",
+      },
+      "left"
+    );
+    this.player1 = new Player(
+      this,
+      1000,
+      200,
+      {
+        up: "ArrowUp",
+        down: "ArrowDown",
+        left: "ArrowLeft",
+        right: "ArrowRight",
+        shoot: "Enter",
+      },
+      "right"
+    );
     this.ui = new UI(this);
     this.enemies = []; //*Array of enemies
     this.particles = []; //*Currently pressed particles
