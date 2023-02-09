@@ -16,32 +16,34 @@ export default class Game {
     this.width = width;
     this.height = height;
     this.background = new Background(this);
-    this.player = new Player(
-      this,
-      100,
-      20,
-      {
-        up: "w",
-        down: "s",
-        left: "a",
-        right: "d",
-        shoot: " ",
-      },
-      "left"
-    );
-    this.player1 = new Player(
-      this,
-      1000,
-      200,
-      {
-        up: "ArrowUp",
-        down: "ArrowDown",
-        left: "ArrowLeft",
-        right: "ArrowRight",
-        shoot: "Enter",
-      },
-      "right"
-    );
+    this.players = [
+      new Player(this, {
+        x: 100,
+        y: 20,
+        playerSide: "left",
+        playerKeys: {
+          down: "s",
+          left: "a",
+          right: "d",
+          up: "w",
+          shoot: " ",
+        },
+        image: "player1",
+      }),
+      new Player(this, {
+        x: 1000,
+        y: 200,
+        playerSide: "right",
+        playerKeys: {
+          up: "ArrowUp",
+          down: "ArrowDown",
+          left: "ArrowLeft",
+          right: "ArrowRight",
+          shoot: "Enter",
+        },
+        image: "player2",
+      }),
+    ];
     this.ui = new UI(this);
     this.enemies = []; //*Array of enemies
     this.particles = []; //*Currently pressed particles
@@ -68,8 +70,7 @@ export default class Game {
     this.background.update();
     this.background.layer4.update();
     //?Handle player
-    this.player.update(deltaTime);
-    this.player1.update(deltaTime);
+    this.players.forEach((player) => player.update(deltaTime));
     //?Handle ammo
     if (this.ammoTimer > this.ammoInterval) {
       if (this.ammo < this.maxAmmo) this.ammo++;
@@ -85,6 +86,31 @@ export default class Game {
     this.explosions = this.explosions.filter(
       (explosion) => !explosion.markedForDeletion
     );
+    //*Handle collision between player projectiles
+    this.players.forEach((player) => {
+      player.projectiles.forEach((projectile) => {
+        this.players
+          .filter((p) => p !== player)
+          .forEach((player) => {
+            if (this.checkCollision(projectile, player)) {
+              projectile.markedForDeletion = true;
+              player.lives--;
+              this.particles.push(
+                new Particle(
+                  this,
+                  player.x + player.width * 0.5,
+                  player.y + player.height * 0.5
+                )
+              );
+              if (player.lives <= 0) {
+                player.markedForDeletion = true;
+                this.addExplosion(player);
+                this.gameOver = true;
+              }
+            }
+          });
+      });
+    });
     //*Handle enemies
     // this.enemies.forEach((enemy) => {
     //   enemy.update();
@@ -152,8 +178,7 @@ export default class Game {
     this.background.draw(context); //*Draw background behind everything
     this.ui.draw(context);
     //?Draw players
-    this.player.draw(context);
-    this.player1.draw(context);
+    this.players.forEach((player) => player.draw(context));
     //*Draw particles in front of everything
     this.particles.forEach((particle) => particle.draw(context));
     //*Draw enemies

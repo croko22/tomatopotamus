@@ -2,23 +2,25 @@ import Projectile from "./Projectile.js";
 import InputHandler from "./InputHandler.js";
 
 export default class Player {
-  constructor(game, x, y, playerKeys, playerSide) {
+  constructor(game, playerData) {
     this.game = game;
-    this.playerKeys = playerKeys;
-    this.input = new InputHandler(this.game, this, this.playerKeys);
-    this.playerSide = playerSide;
-    this.width = 120;
-    this.height = 190;
-    this.x = x;
-    this.y = y;
+    this.playerData = playerData;
+    this.playerKeys = this.playerData.playerKeys;
+    this.input = new InputHandler(this.game, this, this.playerData.playerKeys);
+    this.playerSide = this.playerData.playerSide;
+    this.lives = 3;
+    this.width = 349;
+    this.height = 247;
+    this.x = this.playerData.x;
+    this.y = this.playerData.y;
     this.frameX = 0;
     this.frameY = 0;
-    this.maxFrame = 37;
+    this.maxFrame = 2;
     this.speedY = 0;
     this.maxSpeed = 3;
     this.projectiles = [];
     this.keys = []; //*Currently pressed keys
-    this.image = document.getElementById("player");
+    this.image = document.getElementById(playerData.image);
     this.powerUp = false;
     this.powerUpTimer = 0;
     this.powerUpLimit = 5000;
@@ -54,8 +56,8 @@ export default class Player {
       (projectile) => !projectile.markedForDeletion
     );
     //*Handle animation (LA HOSTIA)
-    if (this.frameX < this.maxFrame) this.frameX++;
-    else this.frameX = 0;
+    // if (this.frameX < this.maxFrame) this.frameX++;
+    // else this.frameX = 0;
     //?Handle powerUp
     if (this.powerUp) {
       if (this.powerUpTimer > this.powerUpLimit) {

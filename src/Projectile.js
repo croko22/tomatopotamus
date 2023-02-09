@@ -4,9 +4,9 @@ export default class Projectile {
     this.playerSide = playerSide;
     this.x = x;
     this.y = y;
-    this.width = 10;
-    this.height = 3;
-    this.speed = 3;
+    this.width = 30;
+    this.height = 30;
+    this.speed = 5;
     this.markedForDeletion = false;
     this.image = document.getElementById("projectile");
   }
@@ -17,6 +17,6 @@ export default class Projectile {
       this.markedForDeletion = true;
   }
   draw(context) {
-    context.drawImage(this.image, this.x, this.y);
+    context.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 }
