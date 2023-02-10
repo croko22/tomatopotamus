@@ -9,13 +9,15 @@ export default class Player {
     this.input = new InputHandler(this.game, this, this.playerData.playerKeys);
     this.playerSide = this.playerData.playerSide;
     this.lives = 3;
-    this.width = 349;
-    this.height = 247;
+    this.score = 0;
+    //TODO: Resize image in PS
+    this.width = 347;
+    this.height = 245;
     this.x = this.playerData.x;
     this.y = this.playerData.y;
     this.frameX = 0;
     this.frameY = 0;
-    this.maxFrame = 2;
+    this.maxFrame = 37;
     this.speedY = 0;
     this.maxSpeed = 3;
     this.projectiles = [];
@@ -56,8 +58,8 @@ export default class Player {
       (projectile) => !projectile.markedForDeletion
     );
     //*Handle animation (LA HOSTIA)
-    // if (this.frameX < this.maxFrame) this.frameX++;
-    // else this.frameX = 0;
+    if (this.frameX < this.maxFrame) this.frameX++;
+    else this.frameX = 0;
     //?Handle powerUp
     if (this.powerUp) {
       if (this.powerUpTimer > this.powerUpLimit) {
@@ -72,8 +74,11 @@ export default class Player {
     }
   }
   draw(context) {
-    if (this.game.debug)
+    if (this.game.debug) {
+      context.font = "20px Helvetica";
+      context.fillText(this.lives, this.x, this.y);
       context.strokeRect(this.x, this.y, this.width, this.height);
+    }
     //!Draw projectiles
     this.projectiles.forEach((projectile) => projectile.draw(context));
     context.drawImage(
@@ -84,8 +89,8 @@ export default class Player {
       this.height,
       this.x,
       this.y,
-      this.width,
-      this.height
+      this.width * 0.5,
+      this.height * 0.5
     );
   }
   shootTop() {

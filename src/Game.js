@@ -19,7 +19,7 @@ export default class Game {
     this.players = [
       new Player(this, {
         x: 100,
-        y: 20,
+        y: 200,
         playerSide: "left",
         playerKeys: {
           down: "s",
@@ -55,7 +55,6 @@ export default class Game {
     this.ammoTimer = 0;
     this.ammoInterval = 350;
     this.gameOver = false;
-    this.score = 0;
     this.winningScore = 100;
     this.gameTime = 0;
     this.timeLimit = 30000; //*5 seconds

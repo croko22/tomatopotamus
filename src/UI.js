@@ -12,9 +12,15 @@ export default class UI {
     context.shadowOffsetX = 2;
     context.shadowOffsetY = 2;
     context.shadowColor = "black";
+    //*Lives
+    context.textAlign = "left";
+    context.font = `${this.fontSize}px ${this.fontFamily}`;
+    context.fillText("P1 Lives: " + this.game.players[0].lives, 20, 60);
+    context.fillText("P2 Lives: " + this.game.players[1].lives, 220, 60);
     //*Score
     context.font = `${this.fontSize}px ${this.fontFamily}`;
-    context.fillText("Score: " + this.game.score, 20, 40);
+    context.fillText("Score: " + this.game.players[0].score, 20, 30);
+    context.fillText("Score: " + this.game.players[1].score, 220, 30);
     //*Timer
     const formattedTime = (this.game.gameTime * 0.001).toFixed(1);
     context.fillText("Time: " + formattedTime, 20, 100);
@@ -22,13 +28,12 @@ export default class UI {
     if (this.game.gameOver) {
       context.textAlign = "center";
       let messaje1, messaje2;
-      if (this.game.score >= this.game.winningScore) {
-        messaje1 = "You Win!";
-        messaje2 = "Score: " + this.game.score;
-      } else {
-        messaje1 = "You Lose!";
-        messaje2 = "Score: " + this.game.score;
-      }
+      this.game.players.forEach(function (player) {
+        if (player.lives > 0) {
+          messaje1 = player.playerData.image + " wins!";
+          messaje2 = "Score: " + player.score;
+        }
+      });
       context.font = "70px " + this.fontFamily;
       context.fillText(
         messaje1,
@@ -44,9 +49,9 @@ export default class UI {
     }
     //*Ammo
     //if(this.game.player.powerUp) context.fillStyle = '#ffffbd';
-    for (let i = 0; i < this.game.ammo; i++) {
-      context.fillRect(20 + 5 * i, 50, 3, 20);
-    }
+    // for (let i = 0; i < this.game.ammo; i++) {
+    //   context.fillRect(20 + 5 * i, 50, 3, 20);
+    // }
     context.restore();
   }
 }

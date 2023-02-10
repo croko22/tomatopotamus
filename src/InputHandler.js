@@ -13,7 +13,7 @@ export default class InputHandler {
         this.player.keys.push(e.key);
       else if (e.key === playerKeys.shoot) {
         this.player.shootTop();
-      } else if (e.key === "m") {
+      } else if (e.key === "b") {
         this.game.debug = !this.game.debug;
       }
       //console.log(e.key); //Debug keys
