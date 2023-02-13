@@ -11,13 +11,13 @@ export default class Player {
     this.lives = 3;
     this.score = 0;
     //TODO: Resize image in PS
-    this.width = 347;
-    this.height = 245;
+    this.width = 170;
+    this.height = 120;
     this.x = this.playerData.x;
     this.y = this.playerData.y;
     this.frameX = 0;
     this.frameY = 0;
-    this.maxFrame = 37;
+    this.maxFrame = 36;
     this.speedY = 0;
     this.maxSpeed = 3;
     this.projectiles = [];
@@ -83,15 +83,16 @@ export default class Player {
     this.projectiles.forEach((projectile) => projectile.draw(context));
     context.drawImage(
       this.image,
-      this.frameX * this.width,
-      this.frameY * this.height,
-      this.width,
-      this.height,
+      this.frameX * 347,
+      this.frameY * 246,
+      347,
+      246,
       this.x,
       this.y,
-      this.width * 0.5,
-      this.height * 0.5
+      this.width,
+      this.height
     );
+    // //?Hippo rotation
   }
   shootTop() {
     if (this.game.ammo > 0) {
