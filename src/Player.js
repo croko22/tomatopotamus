@@ -19,7 +19,8 @@ export default class Player {
     this.frameY = 0;
     this.maxFrame = 36;
     this.speedY = 0;
-    this.maxSpeed = 3;
+    this.maxSpeed = 5;
+    this.angle = 0;
     this.projectiles = [];
     this.keys = []; //*Currently pressed keys
     this.image = document.getElementById(playerData.image);
@@ -35,8 +36,13 @@ export default class Player {
     else this.speedY = 0;
     this.y += this.speedY;
     //*Handle input X edge
-    if (this.keys.includes(this.playerKeys.left)) this.x -= this.maxSpeed;
-    else if (this.keys.includes(this.playerKeys.right)) this.x += this.maxSpeed;
+    if (this.keys.includes(this.playerKeys.left)) {
+      this.x -= this.maxSpeed;
+      this.angle = -0.3;
+    } else if (this.keys.includes(this.playerKeys.right)) {
+      this.x += this.maxSpeed;
+      this.angle = 0.3;
+    } else this.angle = 0;
     //*Handle boundaries Y edge
     if (this.y > this.game.height - this.height * 0.5)
       this.y = this.game.height - this.height * 0.5;
@@ -81,6 +87,12 @@ export default class Player {
     }
     //!Draw projectiles
     this.projectiles.forEach((projectile) => projectile.draw(context));
+    //*Draw player
+    // //?Hippo rotation
+    context.save();
+    context.translate(this.x + this.width / 2, this.y + this.height / 2);
+    context.rotate(this.angle);
+    context.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
     context.drawImage(
       this.image,
       this.frameX * 347,
@@ -92,7 +104,7 @@ export default class Player {
       this.width,
       this.height
     );
-    // //?Hippo rotation
+    context.restore();
   }
   shootTop() {
     if (this.game.ammo > 0) {
