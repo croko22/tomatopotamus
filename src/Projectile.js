@@ -6,7 +6,7 @@ export default class Projectile {
     this.y = y;
     this.width = 30;
     this.height = 30;
-    this.speed = 5;
+    this.speed = 10;
     this.markedForDeletion = false;
     this.image = document.getElementById("projectile");
   }

@@ -9,8 +9,8 @@ export default class Player {
     this.input = new InputHandler(this.game, this, this.playerData.playerKeys);
     this.playerSide = this.playerData.playerSide;
     this.lives = 3;
+    this.markedForDeletion = false;
     this.score = 0;
-    //TODO: Resize image in PS
     this.width = 170;
     this.height = 120;
     this.x = this.playerData.x;
@@ -78,6 +78,11 @@ export default class Player {
         this.game.ammo += 0.1;
       }
     }
+    //*Handle deletion
+    if (this.markedForDeletion) {
+      this.x = -1000;
+      this.y = -1000;
+    }
   }
   draw(context) {
     if (this.game.debug) {
@@ -88,11 +93,6 @@ export default class Player {
     //!Draw projectiles
     this.projectiles.forEach((projectile) => projectile.draw(context));
     //*Draw player
-    // //?Hippo rotation
-    context.save();
-    context.translate(this.x + this.width / 2, this.y + this.height / 2);
-    context.rotate(this.angle);
-    context.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
     context.drawImage(
       this.image,
       this.frameX * 347,
@@ -104,6 +104,12 @@ export default class Player {
       this.width,
       this.height
     );
+    // //?Hippo rotation
+    context.save();
+    context.translate(this.x + this.width / 2, this.y + this.height / 2);
+    context.rotate(this.angle);
+    context.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
+
     context.restore();
   }
   shootTop() {
