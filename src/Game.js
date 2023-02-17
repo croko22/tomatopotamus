@@ -65,13 +65,11 @@ export default class Game {
   }
   update(deltaTime) {
     //*Game time
-    //if (!this.gameOver) this.gameTime += deltaTime;
+    if (!this.gameOver) this.gameTime += deltaTime;
     //if (this.gameTime > this.timeLimit) this.gameOver = true;
     //?Handle background
     this.background.update();
     this.background.layer4.update();
-    //?Handle player
-    this.players.forEach((player) => player.update(deltaTime));
     //?Handle ammo
     if (this.ammoTimer > this.ammoInterval) {
       if (this.ammo < this.maxAmmo) this.ammo++;
@@ -92,26 +90,30 @@ export default class Game {
       player.projectiles.forEach((projectile) => {
         this.players
           .filter((p) => p !== player)
-          .forEach((player) => {
-            if (this.checkCollision(projectile, player)) {
+          .forEach((playerCol) => {
+            if (this.checkCollision(projectile, playerCol)) {
               projectile.markedForDeletion = true;
-              player.lives--;
+              playerCol.lives--;
+              player.score += Math.round(this.gameTime);
               this.particles.push(
                 new Particle(
                   this,
-                  player.x + player.width * 0.5,
-                  player.y + player.height * 0.5
+                  playerCol.x + playerCol.width * 0.5,
+                  playerCol.y + playerCol.height * 0.5
                 )
               );
-              if (player.lives <= 0) {
-                player.markedForDeletion = true;
-                this.addExplosion(player);
+              if (playerCol.lives <= 0) {
+                playerCol.markedForDeletion = true;
+                this.addExplosion(playerCol);
                 this.gameOver = true;
               }
             }
           });
       });
     });
+    //?Handle player
+    this.players.forEach((player) => player.update(deltaTime));
+    // this.players = this.players.filter((player) => !player.markedForDeletion);
     //*Handle enemies
     // this.enemies.forEach((enemy) => {
     //   enemy.update();
