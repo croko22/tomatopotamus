@@ -15,15 +15,15 @@ export default class UI {
     //*Lives
     context.textAlign = "left";
     context.font = `${this.fontSize}px ${this.fontFamily}`;
-    context.fillText("P1 Lives: " + this.game.players[0].lives, 20, 60);
-    context.fillText("P2 Lives: " + this.game.players[1].lives, 220, 60);
+    context.fillText("P1 Lives: " + this.game.players[0].lives, 220, 60);
+    context.fillText("P2 Lives: " + this.game.players[1].lives, 620, 60);
     //*Score
     context.font = `${this.fontSize}px ${this.fontFamily}`;
-    context.fillText("Score: " + this.game.players[0].score, 20, 30);
-    context.fillText("Score: " + this.game.players[1].score, 220, 30);
+    context.fillText("Score: " + this.game.players[0].score, 220, 30);
+    context.fillText("Score: " + this.game.players[1].score, 620, 30);
     //*Timer
-    const formattedTime = (this.game.gameTime * 0.001).toFixed(1);
-    context.fillText("Time: " + formattedTime, 20, 100);
+    // const formattedTime = (this.game.gameTime * 0.001).toFixed(1);
+    // context.fillText("Time: " + formattedTime, 20, 100);
     //!Game over message
     if (this.game.gameOver) {
       context.textAlign = "center";
