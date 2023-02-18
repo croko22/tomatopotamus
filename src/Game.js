@@ -12,7 +12,7 @@ import Player from "./Player.js";
 import Background from "./Background.js";
 
 export default class Game {
-  constructor(width, height) {
+  constructor(width, height, nPlayers) {
     this.width = width;
     this.height = height;
     this.background = new Background(this);
@@ -45,7 +45,35 @@ export default class Game {
         },
         image: "player2",
       }),
-    ];
+      new Player(this, {
+        x: 100,
+        y: 500,
+        playerSide: "left",
+        playerKeys: {
+          up: "u",
+          down: "j",
+          left: "h",
+          right: "k",
+          shoot: "i",
+          debug: "y",
+        },
+        image: "player3",
+      }),
+      new Player(this, {
+        x: 1000,
+        y: 500,
+        playerSide: "right",
+        playerKeys: {
+          up: "Numpad8",
+          down: "Numpad5",
+          left: "Numpad4",
+          right: "Numpad6",
+          shoot: "Numpad0",
+          debug: "Numpad7",
+        },
+        image: "player4",
+      }),
+    ].slice(0, nPlayers);
     this.ui = new UI(this);
     this.enemies = []; //*Array of enemies
     this.particles = []; //*Currently pressed particles
