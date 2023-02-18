@@ -92,6 +92,11 @@ export default class Player {
     }
     //!Draw projectiles
     this.projectiles.forEach((projectile) => projectile.draw(context));
+    // //?Hippo rotation
+    context.save();
+    context.translate(this.x + this.width / 2, this.y + this.height / 2);
+    context.rotate(this.angle);
+    context.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
     //*Draw player
     context.drawImage(
       this.image,
@@ -104,12 +109,6 @@ export default class Player {
       this.width,
       this.height
     );
-    // //?Hippo rotation
-    context.save();
-    context.translate(this.x + this.width / 2, this.y + this.height / 2);
-    context.rotate(this.angle);
-    context.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
-
     context.restore();
   }
   shootTop() {
