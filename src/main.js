@@ -1,12 +1,12 @@
 import Game from "./Game.js";
 
-window.addEventListener("load", function () {
+function runGame(nPlayers) {
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
   canvas.width = 1500;
-  canvas.height = 700;
+  canvas.height = 800;
 
-  const game = new Game(canvas.width, canvas.height);
+  const game = new Game(canvas.width, canvas.height, nPlayers);
   let lastTime = 0;
   function gameLoop(timeStamp) {
     const deltaTime = timeStamp - lastTime;
@@ -19,4 +19,15 @@ window.addEventListener("load", function () {
     requestAnimationFrame(gameLoop);
   }
   gameLoop(0);
+}
+let nOfPlayers = 0;
+const twoPlayersGame = document.getElementById("play2");
+twoPlayersGame.addEventListener("click", () => {
+  nOfPlayers = 2;
+  runGame(nOfPlayers);
+});
+const fourPlayersGame = document.getElementById("play4");
+fourPlayersGame.addEventListener("click", () => {
+  nOfPlayers = 4;
+  runGame(nOfPlayers);
 });
