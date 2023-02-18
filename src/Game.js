@@ -97,7 +97,7 @@ export default class Game {
     //if (this.gameTime > this.timeLimit) this.gameOver = true;
     //?Handle background
     this.background.update();
-    this.background.layer4.update();
+    // this.background.layer4.update();
     //?Handle ammo
     if (this.ammoTimer > this.ammoInterval) {
       if (this.ammo < this.maxAmmo) this.ammo++;
@@ -217,7 +217,7 @@ export default class Game {
     //*Draw explosions
     this.explosions.forEach((explosion) => explosion.draw(context));
     //*Draw foreground in front of everything
-    this.background.layer4.draw(context);
+    // this.background.layer4.draw(context);
   }
   addEnemy() {
     const randomize = Math.random();
