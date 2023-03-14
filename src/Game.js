@@ -133,7 +133,7 @@ export default class Game {
               if (playerCol.lives <= 0) {
                 playerCol.markedForDeletion = true;
                 this.addExplosion(playerCol);
-                this.gameOver = true;
+                if(this.players.filter(player => player.lives > 0).length === 1) this.gameOver = true;
               }
             }
           });

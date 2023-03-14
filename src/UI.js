@@ -31,12 +31,13 @@ export default class UI {
     if (this.game.gameOver) {
       context.textAlign = "center";
       let messaje1, messaje2;
-      this.game.players.forEach(function (player) {
-        if (player.lives > 0) {
-          messaje1 = player.playerData.image + " wins!";
-          messaje2 = "Score: " + player.score;
-        }
-      });
+
+      //*Draw the winner message
+      let winner = this.game.players.filter((player) => player.lives > 0)[0];
+      if(this.game.players.filter(player => player.lives > 0).length === 1) {
+        messaje1 = winner.playerData.image + " wins!";
+        messaje2 = "Score: " + winner.score;
+      }
       context.font = "70px " + this.fontFamily;
       context.fillText(
         messaje1,
