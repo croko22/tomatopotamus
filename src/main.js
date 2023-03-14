@@ -21,13 +21,16 @@ function runGame(nPlayers) {
   gameLoop(0);
 }
 let nOfPlayers = 0;
+let btnBox = document.getElementById("btnBox");
 const twoPlayersGame = document.getElementById("play2");
 twoPlayersGame.addEventListener("click", () => {
   nOfPlayers = 2;
   runGame(nOfPlayers);
+  btnBox.style.display = "none";
 });
 const fourPlayersGame = document.getElementById("play4");
 fourPlayersGame.addEventListener("click", () => {
   nOfPlayers = 4;
   runGame(nOfPlayers);
+  btnBox.style.display = "none";
 });

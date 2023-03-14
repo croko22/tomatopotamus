@@ -11,17 +11,22 @@
     <title>Game</title>
 </head>
 <body>
-    <div class="menu">
+    <header class="menu">
         <h1>Tomatopotamus</h1>
-        <div class="btnBox">
+        <nav class="navBar">
+            <button class="playBtn">Controls</button>
+        </nav>
+    </header>
+    
+    <!--* Game -->
+    <div class="game">
+        <canvas id="canvas1"></canvas>
+        <div class="btnBox" id="btnBox">
+            <h3>Play</h3>
             <button id="play2" class="playBtn">2 PLAYERS</button>
             <button id="play4" class="playBtn">4 PLAYERS</button>
-            <button class="playBtn">Controls</button>
         </div>
     </div>
-    <canvas id="canvas1"></canvas>
-
-    <!--* Characters -->
     <!--? Player -->
     <img src="assets/player/yellow-hippo.png" id="player1">
     <img src="assets/player/blue-hippo.png" id="player2">
