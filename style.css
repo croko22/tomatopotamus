@@ -1,72 +1,160 @@
+:root {
+  --bg-primary: #0a0e27;
+  --bg-secondary: #1a1f3a;
+  --bg-card: #252d48;
+  --accent-primary: #00d9ff;
+  --accent-secondary: #7b2ff7;
+  --accent-danger: #ff3366;
+  --text-primary: #ffffff;
+  --text-secondary: #b8c5d6;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.3);
+  --border-radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
 /*? Header */
 .menu {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background-color: rgb(47, 181, 190, 0.8);
+  padding: 1.5rem 3rem;
+  background: rgba(26, 31, 58, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  border-bottom: 2px solid rgba(0, 217, 255, 0.1);
 }
 
 .menu h1 {
-  font-size: 30px;
+  font-size: 2.5rem;
   font-family: "Bangers", cursive;
-  text-shadow: 2px 2px 2px white;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+  letter-spacing: 2px;
+}
+
+.navBar .playBtn {
+  width: auto;
+  padding: 0.75rem 1.5rem;
 }
 
 /** Game */
-.game{
+.game {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px;
+  min-height: calc(100vh - 100px);
+  padding: 2rem;
 }
 
 .btnBox {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  gap: 20px;
-  top: 350px;
+  position: absolute;
+  gap: 1.5rem;
   flex-direction: column;
-  padding: 10px;
-  background-color: rgb(47, 181, 190, 0.8);
-  border-radius: 10px;
-  font-size: 20px;
+  padding: 2.5rem 3rem;
+  background: rgba(37, 45, 72, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: var(--border-radius);
+  border: 2px solid rgba(0, 217, 255, 0.2);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  z-index: 100;
+}
+
+.btnBox h3 {
+  font-size: 1.8rem;
   font-family: "Bangers", cursive;
-  color: white;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modeSelection {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .playBtn {
-  width: 100px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: rgb(47, 181, 190);
-  border: 5px solid rgb(66, 211, 255);
-  font-size: 20px;
+  min-width: 140px;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border: none;
+  font-size: 1.1rem;
   font-family: "Bangers", cursive;
-  color: white;
+  color: var(--text-primary);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-sm);
+}
+
+.playBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: var(--transition);
+}
+
+.playBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), 0 0 30px rgba(0, 217, 255, 0.4);
+}
+
+.playBtn:hover::before {
+  left: 100%;
+}
+
+.playBtn:active {
+  transform: translateY(0);
 }
 
 #canvas1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   transform: translate(-50%, -50%);
-  background-color: rgb(47, 181, 190);
+  background: linear-gradient(135deg, #1a1f3a 0%, #252d48 100%);
   max-width: 100%;
   max-height: 100%;
   font-family: "Bangers", cursive;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid rgba(0, 217, 255, 0.15);
 }
-
 
 img {
   display: none;

@@ -22,9 +22,21 @@
     <div class="game">
         <canvas id="canvas1"></canvas>
         <div class="btnBox" id="btnBox">
-            <h3>Play</h3>
+            <h3>Select Game Mode</h3>
+            <div class="modeSelection">
+                <button id="pvpMode" class="playBtn">PvP Battle</button>
+                <button id="coopMode" class="playBtn">Co-op Survival</button>
+            </div>
+        </div>
+        <div class="btnBox" id="playerBox" style="display: none;">
+            <h3>Select Players</h3>
             <button id="play2" class="playBtn">2 PLAYERS</button>
             <button id="play4" class="playBtn">4 PLAYERS</button>
+        </div>
+        <div class="btnBox" id="roundBox" style="display: none;">
+            <h3>Select Rounds</h3>
+            <button id="rounds3" class="playBtn">Best of 3</button>
+            <button id="rounds5" class="playBtn">Best of 5</button>
         </div>
     </div>
     <!--? Player -->
@@ -49,7 +61,6 @@
     <img src="assets/background/layer1.png" id="layer1">
     <img src="assets/background/layer2.png" id="layer2">
     <img src="assets/background/layer3.png" id="layer3">
-    <!-- <img src="assets/background/layer4.png" id="layer4"> -->
 
     <script type="module" src="src/main.js"></script>
 </body>
